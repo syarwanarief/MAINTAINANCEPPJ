@@ -2,17 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_today"
         android:title="Home"
         />
     <item
         android:id="@+id/nav_jadwal"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_today"
         android:title="Jadwal"
         />
     <item
         android:id="@+id/nav_tambah"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_today"
         android:title="Tambah"
+
         />
 </menu>

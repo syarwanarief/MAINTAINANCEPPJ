@@ -8,12 +8,6 @@
     android:background="@android:color/white">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </LinearLayout>
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -25,9 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFCDD2"
-        app:itemIconTint="@color/colorPrimary"
+        android:background="#009688"
+        android:foregroundTint="@color/colorPrimary"
+        app:itemIconTint="@android:color/black"
         app:menu="@menu/menu_bottom_nav"
         />
 
 </RelativeLayout>
+
