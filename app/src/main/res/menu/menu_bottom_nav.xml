@@ -10,10 +10,4 @@
         android:icon="@android:drawable/ic_menu_today"
         android:title="Jadwal"
         />
-    <item
-        android:id="@+id/nav_tambah"
-        android:icon="@android:drawable/ic_menu_today"
-        android:title="Tambah"
-
-        />
 </menu>

@@ -74,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.nav_jadwal:
                             selectedFragment = new JadwalFragment();
                             break;
-                        case R.id.nav_tambah:
-                            selectedFragment = new TambahFragment();
-                            break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             selectedFragment).commit();
@@ -104,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void tambah(View view) {
         TambahFragment fragment = new TambahFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public void back(View view) {
+        HomeFragment fragment = new HomeFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
