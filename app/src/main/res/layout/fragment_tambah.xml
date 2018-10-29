@@ -2,12 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/holo_blue_light">
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Isi apa aja semau elo"
-        android:gravity="center"
-        android:textSize="30dp"/>
+        android:layout_height="140dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginLeft="72dp"
+            android:hint="Reminder"
+            android:textSize="25dp"
+            android:lines="4"
+            android:minLines="4"
+            android:gravity="top|left"
+            android:textColor="#FFF"
+            android:scrollHorizontally="false"
+            android:textColorHint="@color/design_default_color_primary_dark"
+            android:layout_marginRight="16dp"/>
+
+    </LinearLayout>
 </RelativeLayout>
