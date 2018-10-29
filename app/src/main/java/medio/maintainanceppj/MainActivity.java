@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         if (i == 1){
                             Toast.makeText(MainActivity.this, "Tap Lagi Untuk Menambah",Toast.LENGTH_SHORT).show();
                         }else if (i == 2){
-                            HomeFragment fragment = new HomeFragment();
+                            TambahFragment fragment = new TambahFragment();
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                             fragmentTransaction.replace(R.id.fragment_container, fragment);
                             fragmentTransaction.commit();
@@ -100,5 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             },400);
         }
+    }
+
+    public void tambah(View view) {
+        TambahFragment fragment = new TambahFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.commit();
     }
 }
