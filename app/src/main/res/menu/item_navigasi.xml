@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/beranda"
+            android:checked="false"
+            android:icon="@drawable/ic_beranda"
+            android:title="Beranda" />
+        <item
+            android:id="@+id/jadwal"
+            android:checked="false"
+            android:icon="@drawable/ic_beranda"
+            android:title="Cek Jadwal" />
+
+    </group>
+
+
+    <item
+        android:id="@+id/lainnya"
+        android:title="Lainnya">
+        <menu>
+            <item
+                android:id="@+id/bantuan"
+                android:checked="false"
+                android:icon="@drawable/help"
+                android:title="Bantuan" />
+            <item
+                android:id="@+id/tentang"
+                android:checked="false"
+                android:icon="@drawable/ic_about"
+                android:title="Tentang" />
+
+        </menu>
+    </item>
+
+</menu>
