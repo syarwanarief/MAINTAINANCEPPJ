@@ -3,36 +3,31 @@ package medio.maintainanceppj;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
-import medio.maintainanceppj.getterSetter.getter_tambah;
+import medio.maintainanceppj.getterSetter.JadwalKegiatan;
+
+import static android.view.DragEvent.ACTION_DRAG_ENDED;
 
 public class Tambah extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
@@ -63,6 +58,8 @@ public class Tambah extends AppCompatActivity implements
     private Button btnAdd;
     private EditText isiText;
     private  EditText ruangan;
+    private Spinner beritahu;
+    private Switch aSwitch;
 
 
 
@@ -83,29 +80,34 @@ public class Tambah extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
 
+
                 String keg = isiText.getText().toString();
                 String tgl = tampungdate.getText().toString();
                 String jam = tampungTime.getText().toString();
                 String room = ruangan.getText().toString();
 
-                DatabaseReference mRef = ref.push();
+                if (keg.isEmpty() && tgl.isEmpty() && jam.isEmpty() && room.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Data Kosong, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+                }else{
+                    DatabaseReference mRef = ref.push();
 
-                DatabaseReference keyKegiatan = mRef.child("Kegiatan");
-                DatabaseReference keyTgl = mRef.child("Tanggal");
-                DatabaseReference keyJam = mRef.child("Jam");
-                DatabaseReference keyRuangan = mRef.child("Ruangan");
+                    DatabaseReference keyKegiatan = mRef.child("Kegiatan");
+                    DatabaseReference keyTgl = mRef.child("Tanggal");
+                    DatabaseReference keyJam = mRef.child("Jam");
+                    DatabaseReference keyRuangan = mRef.child("Ruangan");
 
-                keyKegiatan.setValue(keg);
-                keyTgl.setValue(tgl);
-                keyJam.setValue(jam);
-                keyRuangan.setValue(room);
+                    keyKegiatan.setValue(keg);
+                    keyTgl.setValue(tgl);
+                    keyJam.setValue(jam);
+                    keyRuangan.setValue(room);
 
-                Toast.makeText(getApplicationContext(),"Sukses",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
 
-                isiText.setText("");
-                Intent intent = new Intent(Tambah.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                    isiText.setText("");
+                    Intent intent = new Intent(Tambah.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -164,9 +166,8 @@ public class Tambah extends AppCompatActivity implements
                         finish();
                         return true;
                     case R.id.jadwal:
-                        Intent intent2 = new Intent(Tambah.this, Jadwal.class);
+                        Intent intent2 = new Intent(Tambah.this, JadwalKegiatan.class);
                         startActivity(intent2);
-                        finish();
                         return true;
                     case R.id.bantuan:
                         Toast.makeText(getApplicationContext(),"Bantuan telah dipilih",Toast.LENGTH_SHORT).show();
@@ -219,6 +220,20 @@ public class Tambah extends AppCompatActivity implements
         minuteFinal = i2;
 
         tampungTime.setText(" "+hourFinal +":"+minuteFinal);
+
+    }
+
+    public void aktifAlrm(View view) {
+        beritahu = (Spinner) findViewById(R.id.id_beritahu);
+        aSwitch = (Switch) findViewById(R.id.switch1);
+
+        beritahu.setVisibility(View.VISIBLE);
+/*
+            if (ACTION_DRAG_ENDED){
+                beritahu.setVisibility(View.INVISIBLE);
+                return;
+
+        }*/
 
     }
 }

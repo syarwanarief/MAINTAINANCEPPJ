@@ -1,30 +1,23 @@
 package medio.maintainanceppj;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import medio.maintainanceppj.getterSetter.JadwalKegiatan;
+import medio.maintainanceppj.getterSetter.detail;
+import medio.maintainanceppj.getterSetter.listData;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,14 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     //database variable
-    private DatabaseReference mDatabase;
-    private ListView listView;
     private ArrayList<String> arrayList = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
-    DatabaseReference dref;
     List<HashMap<String, String>> list = new ArrayList<>();
-    String kegiatan;
-    String tgl;
 
     //Mendefinisikan variabel
     private NavigationView navigationView;
@@ -64,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //display db
-        listView=(ListView)findViewById(R.id.list_view);
         final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,arrayList);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MTPPJ");
         reference.addValueEventListener(new ValueEventListener() {
@@ -78,12 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        text1 = (TextView) findViewById(R.id.textKosong);
-        listView = (ListView) findViewById(R.id.list_view);
-        if (listView.isActivated()){
-            text1.setText("");
-        }
 
         // Menginisiasi  NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -105,9 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.jadwal:
-                        Intent intent2 = new Intent(MainActivity.this, Jadwal.class);
+                        Intent intent2 = new Intent(MainActivity.this, JadwalKegiatan.class);
                         startActivity(intent2);
-                        finish();
                         return true;
                     case R.id.bantuan:
                         Toast.makeText(getApplicationContext(),"Bantuan telah dipilih",Toast.LENGTH_SHORT).show();

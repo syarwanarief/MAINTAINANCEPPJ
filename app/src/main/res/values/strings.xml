@@ -21,4 +21,11 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string-array name="alarmSebelum">
+        <item >--Beritahu Sebelum : --</item>
+        <item   >1 Hari</item>
+        <item   >1 Jam</item>
+        <item   >30 Menit</item>
+        <item   >10 Menit</item>
+    </string-array>
 </resources>

@@ -22,9 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Tambah" />
-        <activity
-            android:name=".Jadwal"
-            android:label="@string/title_activity_jadwal"></activity>
+        <activity android:name=".getterSetter.JadwalKegiatan"></activity>
     </application>
 
 </manifest>
