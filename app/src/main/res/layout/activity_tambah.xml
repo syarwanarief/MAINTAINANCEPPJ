@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="170dp"
             android:hint="Ketik disini..."
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:layout_marginLeft="10dp"
             android:lines="4"
             android:minLines="4"
@@ -47,19 +47,18 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:ems="10"
-            android:enabled="false"
             android:inputType="textPersonName"
-            android:text="Date" />
+            android:hint="Tanggal" />
 
         <EditText
             android:id="@+id/tampung_jam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginRight="16dp"
             android:ems="10"
-            android:enabled="false"
             android:inputType="textPersonName"
-            android:text="Time" />
+            android:hint="Waktu" />
 
     </LinearLayout>
 
@@ -69,27 +68,22 @@
             android:orientation="horizontal"
             android:paddingTop="260dp">
 
-            <Button
-                android:id="@+id/id_date"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="10dp"
-                android:text="Date"
-                android:textAlignment="center"
+                android:textColor="#000"
                 android:textSize="14dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:text="Ruangan"/>
 
-            <Button
-                android:id="@+id/id_time"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/id_ruangan"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginRight="16dp"
-                android:text="Time"
-                android:textAlignment="center"
-                android:textSize="14dp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
 

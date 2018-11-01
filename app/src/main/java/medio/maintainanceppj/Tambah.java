@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,6 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+import medio.maintainanceppj.getterSetter.getter_tambah;
 
 public class Tambah extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
@@ -51,10 +56,13 @@ public class Tambah extends AppCompatActivity implements
 
     //database variable
     private DatabaseReference mDatabase;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("MTPPJ");
 
-    //list layout
+    //list id
     private Button btnAdd;
     private EditText isiText;
+    private  EditText ruangan;
 
 
 
@@ -67,55 +75,46 @@ public class Tambah extends AppCompatActivity implements
         mDatabase = FirebaseDatabase.getInstance().getReference();
         btnAdd = (Button) findViewById(R.id.add);
         isiText = (EditText) findViewById(R.id.text_isi);
+        ruangan = (EditText) findViewById(R.id.id_ruangan);
+        tampungdate = (EditText) findViewById(R.id.tampung_tanggal);
+        tampungTime = (EditText) findViewById(R.id.tampung_jam);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mDatabase.push().setValue(isiText.getText().toString());
+                String keg = isiText.getText().toString();
+                String tgl = tampungdate.getText().toString();
+                String jam = tampungTime.getText().toString();
+                String room = ruangan.getText().toString();
+
+                DatabaseReference mRef = ref.push();
+
+                DatabaseReference keyKegiatan = mRef.child("Kegiatan");
+                DatabaseReference keyTgl = mRef.child("Tanggal");
+                DatabaseReference keyJam = mRef.child("Jam");
+                DatabaseReference keyRuangan = mRef.child("Ruangan");
+
+                keyKegiatan.setValue(keg);
+                keyTgl.setValue(tgl);
+                keyJam.setValue(jam);
+                keyRuangan.setValue(room);
+
+                Toast.makeText(getApplicationContext(),"Sukses",Toast.LENGTH_SHORT).show();
+
                 isiText.setText("");
                 Intent intent = new Intent(Tambah.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
 
-        mDatabase.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-                });
-
         //date time
-        date = (Button) findViewById(R.id.id_date);
         tampungdate=(EditText) findViewById(R.id.tampung_tanggal);
-        time = (Button) findViewById(R.id.id_time);
         tampungTime = (EditText) findViewById(R.id.tampung_jam);
-        date.setOnClickListener(new View.OnClickListener() {
+        tampungdate.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 Calendar c = Calendar.getInstance();
                 year = c.get(Calendar.YEAR);
                 month = c.get(Calendar.MONTH);
@@ -124,11 +123,14 @@ public class Tambah extends AppCompatActivity implements
                 DatePickerDialog datePickerDialog = new DatePickerDialog(Tambah.this, Tambah.this,
                         year,month,day);
                 datePickerDialog.show();
+
+                tampungdate.setEnabled(false);
+                return false;
             }
         });
-        time.setOnClickListener(new View.OnClickListener() {
+        tampungTime.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event) {
                 Calendar c = Calendar.getInstance();
                 hour = c.get(Calendar.HOUR_OF_DAY);
                 minute = c.get(Calendar.MINUTE);
@@ -136,15 +138,11 @@ public class Tambah extends AppCompatActivity implements
                 TimePickerDialog timePickerDialog = new TimePickerDialog(Tambah.this, Tambah.this,
                         hour, minute, android.text.format.DateFormat.is24HourFormat(Tambah.this));
                 timePickerDialog.show();
+
+                tampungTime.setEnabled(false);
+                return false;
             }
         });
-
-
-        //menambah data
-        tambah =(Button) findViewById(R.id.add);
-        editText=(EditText) findViewById(R.id.text_isi);
-
-
 
         // Menginisiasi  NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -204,14 +202,15 @@ public class Tambah extends AppCompatActivity implements
         finish();
     }
 
+    //lanjutan datetime
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         yearFinal = i;
         mounthFinal = i1 + 1;
         dayFinal = i2;
-        tampungdate.setText("Tanggal : "+yearFinal +
-                "/"+mounthFinal +
-                "/"+dayFinal);
+        tampungdate.setText(" "+yearFinal +"/"
+                +mounthFinal +"/"
+                +dayFinal);
     }
 
     @Override
@@ -219,7 +218,7 @@ public class Tambah extends AppCompatActivity implements
         hourFinal = i;
         minuteFinal = i2;
 
-        tampungTime.setText("Waktu : "+hourFinal +":"+minuteFinal);
+        tampungTime.setText(" "+hourFinal +":"+minuteFinal);
 
     }
 }

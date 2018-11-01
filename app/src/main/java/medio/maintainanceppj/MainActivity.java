@@ -29,8 +29,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,16 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
     //database variable
     private DatabaseReference mDatabase;
-
-    //list layout dokter
-    private Button btnAdd;
-    private EditText etDokter;
     private ListView listView;
-
-    //array dokter
     private ArrayList<String> arrayList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     DatabaseReference dref;
+    List<HashMap<String, String>> list = new ArrayList<>();
+    String kegiatan;
+    String tgl;
 
     //Mendefinisikan variabel
     private NavigationView navigationView;
@@ -61,6 +62,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //display db
+        listView=(ListView)findViewById(R.id.list_view);
+        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,arrayList);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MTPPJ");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         text1 = (TextView) findViewById(R.id.textKosong);
         listView = (ListView) findViewById(R.id.list_view);
@@ -122,33 +139,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         //memanggil synstate
         actionBarDrawerToggle.syncState();
-
-        //display db
-        listView=(ListView)findViewById(R.id.list_view);
-        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,arrayList);
-        listView.setAdapter(adapter);
-        dref=FirebaseDatabase.getInstance().getReference();
-        dref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                arrayList.add(dataSnapshot.getValue(String.class));
-                adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                arrayList.remove(dataSnapshot.getValue(String.class));
-                adapter.notifyDataSetChanged();
-            }
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 
     public void onBackPressed(){
@@ -157,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
         }else if(exit ){
 
         }else {
-            Toast.makeText(this,"Tekan 2x Tombol Back Untuk Keluar Applikasi", Toast.LENGTH_SHORT).show();
             exit = true;
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
