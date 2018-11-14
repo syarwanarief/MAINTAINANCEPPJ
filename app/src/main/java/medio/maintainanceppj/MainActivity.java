@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     list.add(fire);
 
                     RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(list,MainActivity.this);
-                    RecyclerView.LayoutManager recyce = new GridLayoutManager(MainActivity.this,2);
+                    RecyclerView.LayoutManager recyce = new GridLayoutManager(MainActivity.this,1);
                     recyclerView.setLayoutManager(recyce);
                     recyclerView.setItemAnimator( new DefaultItemAnimator());
                     recyclerView.setAdapter(recyclerAdapter);

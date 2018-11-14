@@ -7,65 +7,61 @@
     tools:context=".Tambah"
     android:background="@android:color/holo_blue_light">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <EditText
             android:id="@+id/text_isi"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="100dp"
             android:hint="Ketik disini..."
             android:textSize="18dp"
             android:layout_marginLeft="10dp"
             android:lines="4"
-            android:minLines="4"
+            android:maxLength="100"
             android:gravity="top|left"
             android:textColor="#FFF"
             android:scrollHorizontally="false"
             android:textColorHint="@color/design_default_color_primary_dark"
             android:layout_marginRight="16dp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:paddingTop="190dp">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
         <EditText
             android:id="@+id/tampung_tanggal"
-            android:layout_width="match_parent"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
-            android:layout_weight="1"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="Tanggal" />
 
         <EditText
             android:id="@+id/tampung_jam"
-            android:layout_width="match_parent"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginRight="16dp"
+            android:layout_alignParentRight="true"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="Waktu" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:orientation="horizontal"
-            android:paddingTop="260dp">
+            android:layout_height="40dp"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,18 +74,17 @@
 
             <EditText
                 android:id="@+id/id_ruangan"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="10dp"/>
+                android:paddingTop="30dp"
+                android:maxLength="40"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:paddingTop="330dp">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
             <Switch
                 android:id="@+id/switch1"
                 android:layout_width="match_parent"
@@ -100,13 +95,12 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:onClick="aktifAlrm"/>
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:paddingTop="395dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
             <Spinner
                 android:id="@+id/id_beritahu"
                 android:entries="@array/alarmSebelum"
@@ -116,35 +110,38 @@
                 android:layout_marginLeft="7dp"
                 android:visibility="invisible">
             </Spinner>
-        </LinearLayout>
+        </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Kembali"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:onClick="back"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="72dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:text="Tambah"
-        android:textSize="14dp"
-        android:textStyle="bold" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:onClick="back"
+                android:text="Kembali"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="40dp"
+                android:gravity="center"
+                android:text="Tambah"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
