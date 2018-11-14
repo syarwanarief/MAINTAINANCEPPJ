@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,7 +31,7 @@ import medio.maintainanceppj.getterSetter.JadwalKegiatan;
 import static android.view.DragEvent.ACTION_DRAG_ENDED;
 
 public class Tambah extends AppCompatActivity implements
-        DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
+        DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener, CompoundButton.OnCheckedChangeListener {
 
     Button tambah;
     EditText editText;
@@ -52,14 +53,13 @@ public class Tambah extends AppCompatActivity implements
     //database variable
     private DatabaseReference mDatabase;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference("MTPPJ");
+    DatabaseReference ref = database.getReference();
 
     //list id
     private Button btnAdd;
     private EditText isiText;
     private  EditText ruangan;
     private Spinner beritahu;
-    private Switch aSwitch;
 
 
 
@@ -67,6 +67,12 @@ public class Tambah extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah);
+
+        //action switch
+        Switch s = (Switch) findViewById(R.id.switch1);
+        if (s != null); {
+            s.setOnCheckedChangeListener(this);
+        }
 
         //save
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -86,15 +92,15 @@ public class Tambah extends AppCompatActivity implements
                 String jam = tampungTime.getText().toString();
                 String room = ruangan.getText().toString();
 
-                if (keg.isEmpty() && tgl.isEmpty() && jam.isEmpty() && room.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Data Kosong, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+                if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Data Tidak Lengkap, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
                 }else{
                     DatabaseReference mRef = ref.push();
 
-                    DatabaseReference keyKegiatan = mRef.child("Kegiatan");
-                    DatabaseReference keyTgl = mRef.child("Tanggal");
-                    DatabaseReference keyJam = mRef.child("Jam");
-                    DatabaseReference keyRuangan = mRef.child("Ruangan");
+                    DatabaseReference keyKegiatan = mRef.child("kegiatan");
+                    DatabaseReference keyTgl = mRef.child("tanggal");
+                    DatabaseReference keyJam = mRef.child("jam");
+                    DatabaseReference keyRuangan = mRef.child("ruangan");
 
                     keyKegiatan.setValue(keg);
                     keyTgl.setValue(tgl);
@@ -224,16 +230,19 @@ public class Tambah extends AppCompatActivity implements
     }
 
     public void aktifAlrm(View view) {
-        beritahu = (Spinner) findViewById(R.id.id_beritahu);
-        aSwitch = (Switch) findViewById(R.id.switch1);
 
-        beritahu.setVisibility(View.VISIBLE);
-/*
-            if (ACTION_DRAG_ENDED){
-                beritahu.setVisibility(View.INVISIBLE);
-                return;
+    }
 
-        }*/
+    //action switch
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+        Spinner b = (Spinner) findViewById(R.id.id_beritahu);
+        if(isChecked) {
+            //do stuff when Switch is ON
+            b.setVisibility(View.VISIBLE);
+        } else {
+            //do stuff when Switch if OFF
+            b.setVisibility(View.INVISIBLE);
+        }
     }
 }

@@ -22,10 +22,13 @@
         completions."
     </string>
     <string-array name="alarmSebelum">
-        <item >--Beritahu Sebelum : --</item>
-        <item   >1 Hari</item>
-        <item   >1 Jam</item>
-        <item   >30 Menit</item>
-        <item   >10 Menit</item>
+        <item>--Beritahu Sebelum : --</item>
+        <item>1 Hari</item>
+        <item>1 Jam</item>
+        <item>30 Menit</item>
+        <item>10 Menit</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

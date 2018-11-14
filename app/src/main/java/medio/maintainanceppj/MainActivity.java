@@ -1,16 +1,23 @@
 package medio.maintainanceppj;
 
+import android.app.usage.UsageEvents;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,6 +39,8 @@ import medio.maintainanceppj.getterSetter.JadwalKegiatan;
 import medio.maintainanceppj.getterSetter.detail;
 import medio.maintainanceppj.getterSetter.listData;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView text1;
@@ -39,14 +48,11 @@ public class MainActivity extends AppCompatActivity {
     int i = 0;
     boolean exit = false;
 
-
-    //database variable
-    private ArrayList<String> arrayList = new ArrayList<>();
-    List<HashMap<String, String>> list = new ArrayList<>();
-
     //Mendefinisikan variabel
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+    private RecyclerView recyclerView;
+    List<FireModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +60,50 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //display db
-        final ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,arrayList);
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("MTPPJ");
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        String key = reference.getKey();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                list = new ArrayList<FireModel>();
+                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+/*
+                    if (dataSnapshot1.exists()){
+                        //hidefragm
+                        TextView tv = (TextView) findViewById(R.id.textKosong);
+                        EmptyActivity fragment1 = new EmptyActivity();
+                        FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction1.remove(fragment1);
+                        tv.setText("");
+                    }else{
+                        //displayfragm
+                        EmptyActivity fragment = new EmptyActivity();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, fragment);
+                        fragmentTransaction.commit();
+                    }*/
+
+                    FireModel value = dataSnapshot1.getValue(FireModel.class);
+                    FireModel fire = new FireModel();
+                    String vkeg = value.getKegiatan();
+                    String vtgl = value.getTanggal();
+                    String vjam = value.getJam();
+                    String vruang = value.getRuangan();
+                    fire.setKegiatan(vkeg);
+                    fire.setTanggal(vtgl);
+                    fire.setJam(vjam);
+                    fire.setRuangan(vruang);
+                    list.add(fire);
+
+                    RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(list,MainActivity.this);
+                    RecyclerView.LayoutManager recyce = new GridLayoutManager(MainActivity.this,2);
+                    recyclerView.setLayoutManager(recyce);
+                    recyclerView.setItemAnimator( new DefaultItemAnimator());
+                    recyclerView.setAdapter(recyclerAdapter);
+
+                }
 
             }
 
@@ -143,6 +188,23 @@ public class MainActivity extends AppCompatActivity {
     public void tambah(View view) {
         Intent intent = new Intent(MainActivity.this, Tambah.class);
         startActivity(intent);
-        finish();
+    }
+
+    private class GetDataFromFirebase extends AsyncTask<Void,Void,Boolean>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+        }
     }
 }
