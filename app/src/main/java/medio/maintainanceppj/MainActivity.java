@@ -3,10 +3,14 @@ package medio.maintainanceppj;
 import android.app.Notification;
 import android.app.usage.UsageEvents;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,8 +27,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
     //Mendefinisikan variabel
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private RecyclerView recyclerView;
-    List<FireModel> list;
+    ListView list;
+    DatabaseHandler databaseHandler;
+    SQLiteDatabase db;
 
     private NotificationManagerCompat notificationManagerCompat;
 
@@ -65,60 +72,47 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setTitle("Jadwal Kegiatan");
+        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
+        list = (ListView)findViewById(R.id.commentlist);
+
         notificationManagerCompat = NotificationManagerCompat.from(this);
 
+
         //display db
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        String key = reference.getKey();
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        databaseHandler = new DatabaseHandler(this);
+        db = databaseHandler.getWritableDatabase();
 
-                if (dataSnapshot.exists()){
-                    //hidefragm
-                    TextView tv = (TextView) findViewById(R.id.textKosong);
-                    EmptyActivity fragment1 = new EmptyActivity();
-                    FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction1.remove(fragment1);
-                }else{
-                    //displayfragm
-                    EmptyActivity fragment = new EmptyActivity();
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment);
-                    fragmentTransaction.commit();
-                }
+        String [] from = {databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
+        final String [] column = {databaseHandler.COLUMN_ID, databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
+        int[] to = {R.id.vKeg, R.id.vRuangan, R.id.vTgl, R.id.vJam};
 
-                list = new ArrayList<FireModel>();
-                for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
+        final Cursor cursor = db.query(databaseHandler.TABLE_NAME, column, null, null, null, null, null);
+        final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
 
-                    FireModel value = dataSnapshot1.getValue(FireModel.class);
-                    FireModel fire = new FireModel();
-                    String vkeg = value.getKegiatan();
-                    String vtgl = value.getTanggal();
-                    String vjam = value.getJam();
-                    String vruang = value.getRuangan();
-                    fire.setKegiatan(vkeg);
-                    fire.setTanggal(vtgl);
-                    fire.setJam(vjam);
-                    fire.setRuangan(vruang);
-                    list.add(fire);
-
-                    RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(list,MainActivity.this);
-                    RecyclerView.LayoutManager recyce = new GridLayoutManager(MainActivity.this,1);
-                    recyclerView.setLayoutManager(recyce);
-                    recyclerView.setItemAnimator( new DefaultItemAnimator());
-                    recyclerView.setAdapter(recyclerAdapter);
-
-                }
-
+        list.setAdapter(adapter);
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> listView, View view, int position,
+                                    long id){
+                Intent intent = new Intent(MainActivity.this, View_Note.class);
+                intent.putExtra(getString(R.string.rodId), id);
+                startActivity(intent);
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+        });*/
 
-            }
-        });
+        if (cursor == null){
+            //displayfragm
+            EmptyActivity fragment = new EmptyActivity();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+        }else if (cursor != null){
+            EmptyActivity fragment1 = new EmptyActivity();
+            FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction1.remove(fragment1);
+        }
+
 
         // Menginisiasi  NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -197,24 +191,6 @@ public class MainActivity extends AppCompatActivity {
     public void tambah(View view) {
         Intent intent = new Intent(MainActivity.this, Tambah.class);
         startActivity(intent);
-    }
-
-    private class GetDataFromFirebase extends AsyncTask<Void,Void,Boolean>{
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            return false;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-        }
     }
 
     /*/popUp

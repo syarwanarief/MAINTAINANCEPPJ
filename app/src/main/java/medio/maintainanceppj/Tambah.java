@@ -2,7 +2,9 @@ package medio.maintainanceppj;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -48,6 +50,7 @@ public class Tambah extends AppCompatActivity implements
     int dayFinal, mounthFinal, yearFinal, hourFinal, minuteFinal;
 
     private DatabaseReference mFirebase;
+    SQLiteDatabase db;
 
     //Mendefinisikan variabel
     private NavigationView navigationView;
@@ -70,6 +73,10 @@ public class Tambah extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah);
+        getSupportActionBar().setTitle("Tambah kegiatan");
+
+        final DatabaseHandler databaseHandler = new DatabaseHandler(this);
+        db = databaseHandler.getWritableDatabase();
 
         //action switch
         Switch s = (Switch) findViewById(R.id.switch1);
@@ -98,24 +105,17 @@ public class Tambah extends AppCompatActivity implements
                 if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Data Tidak Lengkap, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
                 }else{
-                    DatabaseReference mRef = ref.push();
+                    ContentValues cv = new ContentValues();
+                    cv.put(databaseHandler.COLUMN_KEGIATAN, keg);
+                    cv.put(databaseHandler.COLUMN_RUANGAN, room);
+                    cv.put(databaseHandler.COLUMN_TANGGAL, tgl);
+                    cv.put(databaseHandler.COLUMN_JAM, jam);
 
-                    DatabaseReference keyKegiatan = mRef.child("kegiatan");
-                    DatabaseReference keyTgl = mRef.child("tanggal");
-                    DatabaseReference keyJam = mRef.child("jam");
-                    DatabaseReference keyRuangan = mRef.child("ruangan");
+                    db.insert(databaseHandler.TABLE_NAME, null, cv);
 
-                    keyKegiatan.setValue(keg);
-                    keyTgl.setValue(tgl);
-                    keyJam.setValue(jam);
-                    keyRuangan.setValue(room);
-
-                    Toast.makeText(getApplicationContext(), "Sukses", Toast.LENGTH_SHORT).show();
-
-                    isiText.setText("");
-                    Intent intent = new Intent(Tambah.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    Intent openMainScreen = new Intent(Tambah.this,MainActivity.class);
+                    openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(openMainScreen);
                 }
             }
         });
@@ -220,7 +220,7 @@ public class Tambah extends AppCompatActivity implements
         mounthFinal = i1 + 1;
         dayFinal = i2;
 
-        tampungdate.setText(dayFinal+"-"+mounthFinal+"-"+yearFinal);
+        tampungdate.setText(dayFinal+"/"+mounthFinal+"/"+yearFinal);
     }
 
     @Override

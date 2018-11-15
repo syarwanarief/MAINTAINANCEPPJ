@@ -12,52 +12,52 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#6777">
-
-        <EditText
-            android:id="@+id/text_isi"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:hint="Ketik disini..."
-            android:textSize="18dp"
-            android:layout_marginLeft="10dp"
-            android:lines="4"
-            android:maxLength="100"
-            android:gravity="top|left"
-            android:textColor="#000"
-            android:scrollHorizontally="false"
-            android:textColorHint="@color/design_default_color_primary_dark"
-            android:layout_marginRight="16dp"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <EditText
-            android:id="@+id/tampung_tanggal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp"
-            android:ems="10"
-            android:hint="Tanggal" />
+            android:orientation="vertical"
+            android:background="#6777">
 
-        <EditText
-            android:id="@+id/tampung_jam"
+            <EditText
+                android:id="@+id/text_isi"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="Ketik disini..."
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:lines="4"
+                android:maxLength="100"
+                android:gravity="top|left"
+                android:textColor="#000"
+                android:scrollHorizontally="false"
+                android:textColorHint="@color/design_default_color_primary_dark"
+                android:layout_marginRight="16dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:paddingTop="10dp"
-            android:ems="10"
-            android:hint="Waktu" />
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/tampung_tanggal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="10dp"
+                android:ems="10"
+                android:hint="Tanggal" />
+
+            <EditText
+                android:id="@+id/tampung_jam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="10dp"
+                android:ems="10"
+                android:hint="Waktu" />
 
             <TextView
                 android:id="@+id/textRuagan"
@@ -88,7 +88,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="Alarm"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -101,10 +100,9 @@
                 android:layout_alignParentLeft="true"
                 android:paddingTop="10dp"
                 android:layout_below="@+id/switch1"
-                android:layout_marginLeft="7dp"
                 android:visibility="invisible">
             </Spinner>
-    </LinearLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
