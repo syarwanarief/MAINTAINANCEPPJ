@@ -4,12 +4,12 @@
         <item
             android:id="@+id/beranda"
             android:checked="false"
-            android:icon="@drawable/ic_beranda"
+            android:icon="@drawable/icon_beranda"
             android:title="Beranda" />
         <item
             android:id="@+id/jadwal"
             android:checked="false"
-            android:icon="@drawable/ic_beranda"
+            android:icon="@drawable/icon_tanggal"
             android:title="Cek Jadwal" />
 
     </group>
@@ -22,12 +22,12 @@
             <item
                 android:id="@+id/bantuan"
                 android:checked="false"
-                android:icon="@drawable/help"
+                android:icon="@drawable/icon_bantuan"
                 android:title="Bantuan" />
             <item
                 android:id="@+id/tentang"
                 android:checked="false"
-                android:icon="@drawable/ic_about"
+                android:icon="@drawable/icon_tentang"
                 android:title="Tentang" />
 
         </menu>

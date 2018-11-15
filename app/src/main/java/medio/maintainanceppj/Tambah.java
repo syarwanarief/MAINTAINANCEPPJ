@@ -3,6 +3,7 @@ package medio.maintainanceppj;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import medio.maintainanceppj.getterSetter.JadwalKegiatan;
@@ -56,7 +59,7 @@ public class Tambah extends AppCompatActivity implements
     DatabaseReference ref = database.getReference();
 
     //list id
-    private Button btnAdd;
+    private FloatingActionButton btnAdd;
     private EditText isiText;
     private  EditText ruangan;
     private Spinner beritahu;
@@ -76,9 +79,9 @@ public class Tambah extends AppCompatActivity implements
 
         //save
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        btnAdd = (Button) findViewById(R.id.add);
+        btnAdd = (FloatingActionButton) findViewById(R.id.add);
         isiText = (EditText) findViewById(R.id.text_isi);
-        ruangan = (EditText) findViewById(R.id.id_ruangan);
+        final Spinner ruang = (Spinner) findViewById(R.id.dRuagan);
         tampungdate = (EditText) findViewById(R.id.tampung_tanggal);
         tampungTime = (EditText) findViewById(R.id.tampung_jam);
 
@@ -90,7 +93,7 @@ public class Tambah extends AppCompatActivity implements
                 String keg = isiText.getText().toString();
                 String tgl = tampungdate.getText().toString();
                 String jam = tampungTime.getText().toString();
-                String room = ruangan.getText().toString();
+                String room = ruang.getSelectedItem().toString();
 
                 if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Data Tidak Lengkap, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
@@ -133,7 +136,7 @@ public class Tambah extends AppCompatActivity implements
                 datePickerDialog.show();
 
                 tampungdate.setEnabled(false);
-                return false;
+                return true;
             }
         });
         tampungTime.setOnTouchListener(new View.OnTouchListener() {
@@ -148,9 +151,10 @@ public class Tambah extends AppCompatActivity implements
                 timePickerDialog.show();
 
                 tampungTime.setEnabled(false);
-                return false;
+                return true;
             }
         });
+
 
         // Menginisiasi  NavigationView
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -215,9 +219,8 @@ public class Tambah extends AppCompatActivity implements
         yearFinal = i;
         mounthFinal = i1 + 1;
         dayFinal = i2;
-        tampungdate.setText(" "+yearFinal +"/"
-                +mounthFinal +"/"
-                +dayFinal);
+
+        tampungdate.setText(dayFinal+"-"+mounthFinal+"-"+yearFinal);
     }
 
     @Override
@@ -225,7 +228,7 @@ public class Tambah extends AppCompatActivity implements
         hourFinal = i;
         minuteFinal = i2;
 
-        tampungTime.setText(" "+hourFinal +":"+minuteFinal);
+        tampungTime.setText(hourFinal+":"+minuteFinal);
 
     }
 

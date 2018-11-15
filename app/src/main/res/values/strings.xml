@@ -29,6 +29,15 @@
         <item>10 Menit</item>
     </string-array>
 
+    <string-array name="dataRuangan">
+        <item>Pilih Ruangan :</item>
+        <item>Keuangan</item>
+        <item>Pemasaran</item>
+        <item>Personalia</item>
+        <item>Water Mill</item>
+    </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

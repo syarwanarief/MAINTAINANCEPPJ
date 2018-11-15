@@ -1,5 +1,6 @@
 package medio.maintainanceppj;
 
+import android.app.Notification;
 import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +43,7 @@ import medio.maintainanceppj.getterSetter.detail;
 import medio.maintainanceppj.getterSetter.listData;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+import static medio.maintainanceppj.App.notifID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,10 +58,14 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     List<FireModel> list;
 
+    private NotificationManagerCompat notificationManagerCompat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
 
         //display db
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
@@ -67,23 +75,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                if (dataSnapshot.exists()){
+                    //hidefragm
+                    TextView tv = (TextView) findViewById(R.id.textKosong);
+                    EmptyActivity fragment1 = new EmptyActivity();
+                    FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction1.remove(fragment1);
+                }else{
+                    //displayfragm
+                    EmptyActivity fragment = new EmptyActivity();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.commit();
+                }
+
                 list = new ArrayList<FireModel>();
                 for(DataSnapshot dataSnapshot1 :dataSnapshot.getChildren()){
-/*
-                    if (dataSnapshot1.exists()){
-                        //hidefragm
-                        TextView tv = (TextView) findViewById(R.id.textKosong);
-                        EmptyActivity fragment1 = new EmptyActivity();
-                        FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction1.remove(fragment1);
-                        tv.setText("");
-                    }else{
-                        //displayfragm
-                        EmptyActivity fragment = new EmptyActivity();
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, fragment);
-                        fragmentTransaction.commit();
-                    }*/
 
                     FireModel value = dataSnapshot1.getValue(FireModel.class);
                     FireModel fire = new FireModel();
@@ -168,21 +175,23 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
     }
 
+    boolean doubleBackToExitPressedOnce = false;
     public void onBackPressed(){
-        if (exit){
+        if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-        }else if(exit ){
-
-        }else {
-            exit = true;
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            },400);
+            return;
         }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Tekan Kembali Untuk Keluar Aplikasi", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     public void tambah(View view) {
@@ -207,4 +216,18 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aBoolean);
         }
     }
+
+    /*/popUp
+    public void sendChannel(View v){
+        String title = "Notifikasi";
+        Notification notification = new NotificationCompat.Builder(this,notifID)
+                .setSmallIcon(R.drawable.ic_notifications)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+                notificationManagerCompat.notify(1,notification);
+    }*/
 }

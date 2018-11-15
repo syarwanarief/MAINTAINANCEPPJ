@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Tambah"
-    android:background="@android:color/holo_blue_light">
+    android:background="#FFF">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +14,9 @@
         >
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#6777">
 
         <EditText
             android:id="@+id/text_isi"
@@ -27,7 +28,7 @@
             android:lines="4"
             android:maxLength="100"
             android:gravity="top|left"
-            android:textColor="#FFF"
+            android:textColor="#000"
             android:scrollHorizontally="false"
             android:textColorHint="@color/design_default_color_primary_dark"
             android:layout_marginRight="16dp"/>
@@ -36,7 +37,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1">
         <EditText
             android:id="@+id/tampung_tanggal"
@@ -59,11 +60,13 @@
     </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/vTempat"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/textRuagan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -71,19 +74,22 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:text="Ruangan"/>
-
-            <EditText
-                android:id="@+id/id_ruangan"
+            <Spinner
+                android:id="@+id/dRuagan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dp"
-                android:maxLength="40"/>
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:entries="@array/dataRuangan"
+                android:layout_below="@id/textRuagan"
+                android:paddingTop="20dp">
+            </Spinner>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1">
             <Switch
                 android:id="@+id/switch1"
@@ -95,18 +101,13 @@
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:onClick="aktifAlrm"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
             <Spinner
                 android:id="@+id/id_beritahu"
                 android:entries="@array/alarmSebelum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
+                android:layout_below="@+id/switch1"
                 android:layout_marginLeft="7dp"
                 android:visibility="invisible">
             </Spinner>
@@ -114,31 +115,17 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:onClick="back"
-                android:text="Kembali"
-                android:textSize="14dp"
-                android:textStyle="bold" />
-
-            <Button
+            <android.support.design.widget.FloatingActionButton
                 android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="40dp"
-                android:gravity="center"
-                android:text="Tambah"
-                android:textSize="14dp"
-                android:textStyle="bold" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="80dp"
+                android:src="@drawable/ceklis" />
         </RelativeLayout>
 
     </LinearLayout>
