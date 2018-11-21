@@ -1,55 +1,22 @@
 package medio.maintainanceppj;
 
-import android.app.Notification;
-import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.UserHandle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import medio.maintainanceppj.getterSetter.JadwalKegiatan;
-import medio.maintainanceppj.getterSetter.detail;
-import medio.maintainanceppj.getterSetter.listData;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
-import static medio.maintainanceppj.App.notifID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -138,10 +105,12 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent2);
                         return true;
                     case R.id.bantuan:
-                        Toast.makeText(getApplicationContext(),"Bantuan telah dipilih",Toast.LENGTH_SHORT).show();
+                        Intent intent3 = new Intent(MainActivity.this, Bantuan.class);
+                        startActivity(intent3);
                         return true;
                     case R.id.tentang:
-                        Toast.makeText(getApplicationContext(),"Bantuan telah dipilih",Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(MainActivity.this, Tentang.class);
+                        startActivity(intent4);
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(),"Kesalahan Terjadi ",Toast.LENGTH_SHORT).show();

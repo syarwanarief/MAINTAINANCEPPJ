@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MTPPJ</string>
+    <string name="app_name">Reminder PPJ</string>
     <string name="openDrawer">Drawer dibuka</string>
     <string name="closeDrawer">Drawer ditutup</string>
     <string name="navigation_view_item_1">Beranda</string>
@@ -30,7 +30,7 @@
     </string-array>
 
     <string-array name="dataRuangan">
-        <item>Pilih Ruangan :</item>
+        <item>Pilih Ruangan</item>
         <item>Keuangan</item>
         <item>Pemasaran</item>
         <item>Personalia</item>

@@ -3,18 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JadwalKegiatan">
+    tools:context=".SplashScreen">
 
-    <CalendarView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="#FF4CA1E4">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Silahkan Klik Tanggal Untuk Melihat Jadwal Kegiatan Anda"
-            android:marqueeRepeatLimit="marquee_forever"/>
-    </CalendarView>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerInParent="true"
+            android:foregroundGravity="center"
+            android:src="@drawable/splash_screen" />
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

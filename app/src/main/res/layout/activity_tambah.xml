@@ -38,27 +38,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="40dp"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_tanggal"/>
         <EditText
             android:id="@+id/tampung_tanggal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:textColor="#000"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp"
             android:ems="10"
-            android:hint="Tanggal" />
+            android:hint="Tanggal" /></LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_jam"/>
         <EditText
             android:id="@+id/tampung_jam"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:textColor="#000"
             android:layout_marginLeft="10dp"
             android:paddingTop="10dp"
             android:ems="10"
-            android:hint="Waktu" />
+            android:hint="Waktu" /></LinearLayout>
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:paddingTop="10dp"
+                android:src="@drawable/icon_ruangan"/>
             <TextView
                 android:id="@+id/textRuagan"
                 android:layout_width="wrap_content"
@@ -69,30 +111,45 @@
                 android:textColor="#000"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:text="Ruangan"/>
+                android:text="Ruangan :"/>
             <Spinner
                 android:id="@+id/dRuagan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
+                android:textColor="#000"
                 android:entries="@array/dataRuangan"
                 android:layout_below="@id/textRuagan"
                 android:paddingTop="20dp">
-            </Spinner>
+            </Spinner></LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="45dp"
+                android:paddingTop="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_jam"/>
             <Switch
                 android:id="@+id/switch1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="10dp"
-                android:paddingTop="10dp"
+                android:paddingTop="30dp"
                 android:paddingBottom="10dp"
-                android:text="Alarm"
+                android:textColor="#000"
+                android:text="Notifikasi"
                 android:textSize="14dp"
                 android:textStyle="bold"
-                android:onClick="aktifAlrm"/>
+                android:onClick="aktifAlrm"/></LinearLayout>
             <Spinner
                 android:id="@+id/id_beritahu"
                 android:entries="@array/alarmSebelum"
@@ -106,29 +163,6 @@
             </Spinner>
     </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="32dp"
-                android:layout_marginBottom="72dp"
-                android:src="@drawable/ceklis" />
-        </RelativeLayout>
-
     </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/layout_header"
-        app:menu="@menu/item_navigasi" />
 
 </android.support.v4.widget.DrawerLayout>
