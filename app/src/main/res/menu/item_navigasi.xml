@@ -2,11 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="all">
         <item
-            android:id="@+id/beranda"
-            android:checked="false"
-            android:icon="@drawable/icon_beranda"
-            android:title="Beranda" />
-        <item
             android:id="@+id/jadwal"
             android:checked="false"
             android:icon="@drawable/icon_tanggal"

@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     //database ver
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     //db name
-    public static final String DATABASE_NAME = "remind";
+    public static final String DATABASE_NAME = "MTppj";
     //table name
     public static final String TABLE_NAME = "tasks";
     //table fields
@@ -19,22 +19,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String COLUMN_JAM = "jam";
     public static final String COLUMN_RUANGAN = "ruangan";
 
-    SQLiteDatabase database;
+
+    private final String createDB = "create table if not exists " + TABLE_NAME + " ( "
+            + COLUMN_ID + " integer primary key autoincrement, "
+            + COLUMN_RUANGAN + " text, "
+            + COLUMN_KEGIATAN + " text, "
+            + COLUMN_TANGGAL + " text, "
+            + COLUMN_JAM + " text)";
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        database = getWritableDatabase();
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+TABLE_NAME+" ( "
-                +COLUMN_ID+" INTEGER primary key autoincrement, "+COLUMN_KEGIATAN+" TEXT, "
-                +COLUMN_RUANGAN+" TEXT, "+COLUMN_TANGGAL+" TEXT, "+COLUMN_JAM+" TEXT)");
+        db.execSQL(createDB);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
-
+        db.execSQL("drop table " + TABLE_NAME);
     }
 }

@@ -14,7 +14,7 @@ public class JadwalKegiatan extends AppCompatActivity {
         setContentView(R.layout.activity_jadwal_kegiatan);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("");
+        actionBar.setTitle("Cek Jadwal");
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

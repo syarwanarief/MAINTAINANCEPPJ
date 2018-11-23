@@ -1,5 +1,8 @@
 package medio.maintainanceppj;
 
+import android.app.AlertDialog;
+import android.app.Application;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,12 +14,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     ListView list;
     DatabaseHandler databaseHandler;
     SQLiteDatabase db;
+    SimpleCursorAdapter adapter;
+    private String[] pilih;
 
     private NotificationManagerCompat notificationManagerCompat;
 
@@ -42,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Jadwal Kegiatan");
         //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         list = (ListView)findViewById(R.id.commentlist);
-
         notificationManagerCompat = NotificationManagerCompat.from(this);
-
 
         //display db
         databaseHandler = new DatabaseHandler(this);
@@ -55,29 +66,32 @@ public class MainActivity extends AppCompatActivity {
         int[] to = {R.id.vKeg, R.id.vRuangan, R.id.vTgl, R.id.vJam};
 
         final Cursor cursor = db.query(databaseHandler.TABLE_NAME, column, null, null, null, null, null);
-        final SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
+        adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
 
         list.setAdapter(adapter);
-        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> listView, View view, int position,
-                                    long id){
-                Intent intent = new Intent(MainActivity.this, View_Note.class);
-                intent.putExtra(getString(R.string.rodId), id);
-                startActivity(intent);
+
+        //longklik
+        list.setLongClickable(true);
+        list.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                                            ContextMenu.ContextMenuInfo menuInfo) { //here u set u rute
+                MenuInflater inflater = getMenuInflater();
+                inflater.inflate(R.menu.menu_long_click, menu);
+
             }
+        });
 
-        });*/
-
-        if (cursor == null){
+        if (cursor.moveToFirst()){
+            EmptyActivity fragment1 = new EmptyActivity();
+            FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction1.remove(fragment1);
+        }else {
             //displayfragm
             EmptyActivity fragment = new EmptyActivity();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-        }else if (cursor != null){
-            EmptyActivity fragment1 = new EmptyActivity();
-            FragmentTransaction fragmentTransaction1 = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction1.remove(fragment1);
         }
 
 
@@ -95,11 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
                 //Memeriksa untuk melihat item yang akan dilklik dan melalukan aksi
                 switch (menuItem.getItemId()){
-                    case R.id.beranda:
-                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        return true;
                     case R.id.jadwal:
                         Intent intent2 = new Intent(MainActivity.this, JadwalKegiatan.class);
                         startActivity(intent2);
@@ -161,18 +170,35 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, Tambah.class);
         startActivity(intent);
     }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item
+                .getMenuInfo();
+        final Long id = menuInfo.id;
 
-    /*/popUp
-    public void sendChannel(View v){
-        String title = "Notifikasi";
-        Notification notification = new NotificationCompat.Builder(this,notifID)
-                .setSmallIcon(R.drawable.ic_notifications)
-                .setContentTitle(title)
-                .setContentText(text)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
+        switch (item.getItemId()){
+            case R.id.edit:
+                Intent intent = new Intent(MainActivity.this, MenuEdit.class);
+                startActivity(intent);
+                return true;
+            case R.id.delete:
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder
+                        .setTitle(getString(R.string.delete_title))
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                db.delete(databaseHandler.TABLE_NAME, databaseHandler.COLUMN_ID + "=" + id, null);
+                                db.close();
+                                recreate();
 
-                notificationManagerCompat.notify(1,notification);
-    }*/
+                            }
+                        })
+                        .setNegativeButton(getString(R.string.no), null)//Do nothing on no
+                        .show();
+                return true;
+                default:
+                    return super.onContextItemSelected(item);
+        }
+    }
 }

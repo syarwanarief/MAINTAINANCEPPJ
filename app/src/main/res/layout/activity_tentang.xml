@@ -1,9 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Tentang">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="18dp"
+                android:paddingTop="30dp"
+                android:textStyle="bold"
+                android:text="TENTANG APPLIKASI :"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp"
+                android:textStyle="italic"
+                android:text="Applikasi ini adalah suatu applikasi yang digunakan untuk membantu memudahkan Divisi ICT PT.Semen Baturaja (Persero) Tbk, untuk mencatat setiap kegiatan yang akan dilakukan, seperti perawatan komputer, perbaikan komputer, dan lain sebagainya. Dan applikasi ini akan menampilkan notifikasi jika telah mendekati jadwal dari kegiatan yang dibuat."/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="18dp"
+                android:paddingTop="30dp"
+                android:textStyle="bold"
+                android:text="TENTANG PERUSAHAAN :"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp"
+                android:textStyle="italic"
+                android:text="Nama Perusahaan : PT. Semen Baturaja (Persero) Tbk,"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="30dp"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="TENTANG KAMI :"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="Detail Pengembang:"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:paddingLeft="30dp"
+                android:textStyle="italic"
+                android:text="Imam Zuhdi"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:paddingLeft="30dp"
+                android:textStyle="italic"
+                android:text="Reza Pahlawan"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:paddingLeft="30dp"
+                android:textStyle="italic"
+                android:text="Syarwan Arief"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:text="Kontak Pengembang:"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:paddingLeft="30dp"
+                android:textStyle="italic"
+                android:text="teamproyek7@gmail.com"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

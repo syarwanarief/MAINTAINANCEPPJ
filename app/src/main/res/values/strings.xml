@@ -37,6 +37,11 @@
         <item>Water Mill</item>
     </string-array>
 
+    <string-array name="ItemLongClick">
+        <item>Edit</item>
+        <item>Hapus</item>
+    </string-array>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -68,7 +73,7 @@
 
     <string name="alerttitle">title</string>
 
-    <string name="delete_title">Delete Selected Task</string>
+    <string name="delete_title">Yakin Ingin Hapus?</string>
 
     <string name="delete_message">Are you sure?</string>
 

@@ -1,9 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Bantuan">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Laporkan Masalah Anda"
+                    android:textColor="#000"
+                    android:textStyle="bold"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/idLaporan"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:focusable="false"
+                        android:maxLength="50"
+                        android:hint="Laporkan Disini..."
+                        android:layout_weight="1"/>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kirim Laporan"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="#696969"
+                android:text="Panduan Cara Penggunaan Aplikasi"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Bagaimana Cara Menambahkan Jadwal Aktivitas?"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#000"
+                android:text=" 1. Klik Tombol + pada bagian pojok kanan bawah\n
+2. Isi semua kolom yang tersedia\n
+3. Klik Tombol Ceklik pada bagian pojok kanan atas"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Bagaimana Cara Mengubah Jadwal Aktivitas?"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#000"
+                android:text=" 1. Tahan beberapa saat pada jadwal kegiatan pada menu list yang akan diedit\n
+2. Pilih Edit\n
+3. Ubah Kolom yang ingin diubah\n
+4. Klik tombol ceklis untuk menyimpan hasil yang diubah"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Bagaimana Cara Menghapus Jadwal Aktivitas?"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#000"
+                android:text=" 1. Tahan beberapa saat pada jadwal kegiatan pada menu list yang akan diedit\n
+2. Pilih Hapus, Maka jadwal akan terhapus"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:text="Bagaimana Cara Mengecek Jadwal Aktivitas Yang Telah Dibuat?"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#000"
+                android:text=" 1. Pada menu utama, pada pojok kiri kanan geser layar ke arah kanan\n
+2. Pilih Cek Jadwal\n
+3. Pilih Tanggal\n\n
+Catatan : Jadwal akan tampil berdasarkan tanggal yang dipilih"/>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

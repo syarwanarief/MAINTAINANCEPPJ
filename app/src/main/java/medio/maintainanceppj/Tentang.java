@@ -12,7 +12,7 @@ public class Tentang extends AppCompatActivity {
         setContentView(R.layout.activity_tentang);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("");
+        actionBar.setTitle("Tentang");
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }

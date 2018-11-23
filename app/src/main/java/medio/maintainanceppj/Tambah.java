@@ -69,7 +69,7 @@ public class Tambah extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("");
+        actionBar.setTitle("Tambah Kegiatan");
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
