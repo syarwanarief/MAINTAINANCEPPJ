@@ -69,13 +69,21 @@ public class MainActivity extends AppCompatActivity {
         adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
 
         list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView<?> listView, View view, int position,
+                                    long id){
+                Intent intent = new Intent(MainActivity.this, MenuEdit.class);
+                intent.putExtra(getString(R.string.rodId), id);
+            }
+
+        });
 
         //longklik
         list.setLongClickable(true);
         list.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
-                                            ContextMenu.ContextMenuInfo menuInfo) { //here u set u rute
+                                            ContextMenu.ContextMenuInfo menuInfo) {
                 MenuInflater inflater = getMenuInflater();
                 inflater.inflate(R.menu.menu_long_click, menu);
 
@@ -178,8 +186,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.edit:
-                Intent intent = new Intent(MainActivity.this, MenuEdit.class);
-                startActivity(intent);
+                        Intent intent = new Intent(MainActivity.this, MenuEdit.class);
+                        intent.putExtra(getString(R.string.intent_row_id), id);
+                        startActivity(intent);
                 return true;
             case R.id.delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

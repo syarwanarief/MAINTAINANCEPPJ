@@ -34,7 +34,7 @@
                         android:id="@+id/idLaporan"
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:focusable="false"
+                        android:focusable="true"
                         android:maxLength="50"
                         android:hint="Laporkan Disini..."
                         android:layout_weight="1"/>

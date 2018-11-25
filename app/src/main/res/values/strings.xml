@@ -75,11 +75,13 @@
 
     <string name="delete_title">Yakin Ingin Hapus?</string>
 
+    <string name="edit_title">Simpan Perubahan?</string>
+
     <string name="delete_message">Are you sure?</string>
 
-    <string name="yes">Yes</string>
+    <string name="yes">Ya</string>
 
-    <string name="no">No</string>
+    <string name="no">Tidak</string>
 
     <string name="rodID">rowID</string>
 

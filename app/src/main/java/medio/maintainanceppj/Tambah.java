@@ -95,7 +95,7 @@ public class Tambah extends AppCompatActivity implements
                 datePickerDialog.show();
 
                 tampungdate.setEnabled(false);
-                return true;
+                return false;
             }
         });
         tampungTime.setOnTouchListener(new View.OnTouchListener() {
@@ -110,7 +110,7 @@ public class Tambah extends AppCompatActivity implements
                 timePickerDialog.show();
 
                 tampungTime.setEnabled(false);
-                return true;
+                return false;
             }
         });
 
@@ -139,7 +139,7 @@ public class Tambah extends AppCompatActivity implements
                 String jam = tampungTime.getText().toString();
                 String room = ruang.getSelectedItem().toString();
 
-                if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room.isEmpty()) {
+                if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room == "Pilih Ruangan") {
                     Toast.makeText(getApplicationContext(), "Data Tidak Lengkap, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
                 }else{
                     ContentValues cv = new ContentValues();
