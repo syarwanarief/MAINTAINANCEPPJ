@@ -1,8 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuEdit">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MenuEdit"
+    android:background="#FFF">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#6777">
+
+            <EditText
+                android:id="@+id/text_isi"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="Ketik disini..."
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:lines="4"
+                android:maxLength="100"
+                android:gravity="top|left"
+                android:textColor="#000"
+                android:scrollHorizontally="false"
+                android:textColorHint="@color/design_default_color_primary_dark"
+                android:layout_marginRight="16dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="40dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_tanggal"/>
+                <EditText
+                    android:id="@+id/tampung_tanggal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="#000"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:ems="10"
+                    android:hint="Tanggal" /></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_jam"/>
+                <EditText
+                    android:id="@+id/tampung_jam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="#000"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:ems="10"
+                    android:hint="Waktu" /></LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/icon_ruangan"/>
+                <TextView
+                    android:id="@+id/textRuagan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#000"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:text="Ruangan :"/>
+                <Spinner
+                    android:id="@+id/dRuagan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#000"
+                    android:entries="@array/dataRuangan"
+                    android:layout_below="@id/textRuagan"
+                    android:paddingTop="20dp">
+                </Spinner></LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>

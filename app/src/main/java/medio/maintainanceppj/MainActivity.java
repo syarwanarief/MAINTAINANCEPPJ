@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().setTitle("Jadwal Kegiatan");
+        getSupportActionBar().setTitle("Jadwal Kegiatan ICT PPJ");
         //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         list = (ListView)findViewById(R.id.commentlist);
         notificationManagerCompat = NotificationManagerCompat.from(this);
