@@ -65,6 +65,10 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme" />
+        <receiver android:name=".AlarmReceiver" android:exported="true" android:enabled="true"> </receiver>
+        <receiver android:name=".NotificationManager2" android:exported="true" android:enabled="true"> </receiver>
+
+        <activity android:theme="@style/Base.AlertDialog.AppCompat.Light" android:name=".Alert"> </activity>
 
     </application>
 

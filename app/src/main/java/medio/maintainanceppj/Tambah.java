@@ -1,8 +1,11 @@
 package medio.maintainanceppj;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
@@ -43,6 +46,8 @@ public class Tambah extends AppCompatActivity implements
     Button time;
     int day,month,year,hour,minute;
     int dayFinal, mounthFinal, yearFinal, hourFinal, minuteFinal;
+    Calendar c;
+    DatePickerDialog datePickerDialog;
 
     private DatabaseReference mFirebase;
     SQLiteDatabase db;
@@ -85,32 +90,28 @@ public class Tambah extends AppCompatActivity implements
         tampungdate.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Calendar c = Calendar.getInstance();
-                year = c.get(Calendar.YEAR);
-                month = c.get(Calendar.MONTH);
-                day = c.get(Calendar.DAY_OF_MONTH);
+                Calendar calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog datePickerDialog = new DatePickerDialog(Tambah.this, Tambah.this,
                         year,month,day);
                 datePickerDialog.show();
-
-                tampungdate.setEnabled(false);
-                return false;
+                return true;
             }
         });
         tampungTime.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Calendar c = Calendar.getInstance();
-                hour = c.get(Calendar.HOUR_OF_DAY);
-                minute = c.get(Calendar.MINUTE);
+                Calendar calendar = Calendar.getInstance();
+                hour = calendar.get(Calendar.HOUR_OF_DAY);
+                minute = calendar.get(Calendar.MINUTE);
 
                 TimePickerDialog timePickerDialog = new TimePickerDialog(Tambah.this, Tambah.this,
                         hour, minute, android.text.format.DateFormat.is24HourFormat(Tambah.this));
                 timePickerDialog.show();
-
-                tampungTime.setEnabled(false);
-                return false;
+                return true;
             }
         });
 
@@ -139,7 +140,7 @@ public class Tambah extends AppCompatActivity implements
                 String jam = tampungTime.getText().toString();
                 String room = ruang.getSelectedItem().toString();
 
-                if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room == "Pilih Ruangan") {
+                if (keg.isEmpty() || tgl.isEmpty() || jam.isEmpty() || room.equals("Pilih Ruangan")) {
                     Toast.makeText(getApplicationContext(), "Data Tidak Lengkap, Silahkan Isi Terlebih Dahulu", Toast.LENGTH_SHORT).show();
                 }else{
                     ContentValues cv = new ContentValues();
@@ -149,6 +150,17 @@ public class Tambah extends AppCompatActivity implements
                     cv.put(databaseHandler.COLUMN_JAM, jam);
 
                     db.insert(databaseHandler.TABLE_NAME, null, cv);
+
+                    AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                    Intent intent = new Intent(this, AlarmReceiver.class);
+
+                    String alertTitle = isiText.getText().toString();
+                    intent.putExtra(getString(R.string.alert_title), alertTitle);
+                    intent.putExtra(getString(R.string.nRuang), room);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
 
                     Intent openMainScreen = new Intent(Tambah.this,MainActivity.class);
                     openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -175,6 +187,11 @@ public class Tambah extends AppCompatActivity implements
         mounthFinal = i1 + 1;
         dayFinal = i2;
 
+        c = Calendar.getInstance();
+        c.set(Calendar.YEAR, i);
+        c.set(Calendar.MONTH, i1+1);
+        c.set(Calendar.DAY_OF_MONTH, i2);
+
         tampungdate.setText(dayFinal+"/"+mounthFinal+"/"+yearFinal);
     }
 
@@ -182,6 +199,10 @@ public class Tambah extends AppCompatActivity implements
     public void onTimeSet(TimePicker view, int i, int i2) {
         hourFinal = i;
         minuteFinal = i2;
+
+        c = Calendar.getInstance();
+        c.set(Calendar.HOUR, i);
+        c.set(Calendar.MINUTE, i2);
 
         tampungTime.setText(hourFinal+":"+minuteFinal);
 
@@ -195,9 +216,25 @@ public class Tambah extends AppCompatActivity implements
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         Spinner b = (Spinner) findViewById(R.id.id_beritahu);
+        final Spinner ruang = (Spinner) findViewById(R.id.dRuagan);
+        String pilih = b.getSelectedItem().toString();
+        String vRuang = ruang.getSelectedItem().toString();
         if(isChecked) {
             //do stuff when Switch is ON
             b.setVisibility(View.VISIBLE);
+
+            if (pilih.equals("1 Hari")){
+                AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(this, AlarmReceiver.class);
+
+                String alertTitle = isiText.getText().toString();
+                intent.putExtra(getString(R.string.alert_title), alertTitle);
+                intent.putExtra(getString(R.string.nRuang), vRuang);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+            }
         } else {
             //do stuff when Switch if OFF
             b.setVisibility(View.INVISIBLE);

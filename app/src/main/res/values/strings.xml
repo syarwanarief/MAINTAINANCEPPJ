@@ -64,12 +64,13 @@
     <string name="hour_minutes">HH:mm</string>
 
     <string name="alert_title">title</string>
+    <string name="nRuang">ruang</string>
     <string name="set_notify">Set Notification</string>
     <string name="added_alert">An Alert can be added</string>
     <string name="notify">You can recieve notifications</string>
     <string name="rodId">rowID</string>
 
-    <string name="Alertnotifty">"Alert: "</string>
+    <string name="Alertnotifty">"Notifikasi Kegiatan: "</string>
 
     <string name="alerttitle">title</string>
 
@@ -123,16 +124,20 @@
 
     <string name="time_vie">testtime</string>
 
-    <string name="alarmtext">Alert: </string>
+    <string name="alarmtext">Kegiatan : </string>
+    <string name="alarmruangan">Ruangan : </string>
 
     <string name="dateformate">dd/MM/yyyy</string>
 
     <string name="Not_Set_Alert">Not Set</string>
 
     <string name="ok">Ok</string>
+    <string name="cek">Lihat Kegiatan</string>
 
     <string name="title_msg">title</string>
+    <string name="ruang_msg">ruang</string>
 
     <string name="titttle">title</string>
+    <string name="ruangan">ruangan</string>
     <string name="alert_content">alert_content</string>
 </resources>
