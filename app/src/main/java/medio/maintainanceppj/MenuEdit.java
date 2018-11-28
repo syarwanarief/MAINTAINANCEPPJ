@@ -48,21 +48,12 @@ public class MenuEdit extends AppCompatActivity
     int day,month,year,hour,minute;
     int dayFinal, mounthFinal, yearFinal, hourFinal, minuteFinal;
 
-    private DatabaseReference mFirebase;
-
-
-    //Mendefinisikan variabel
-    private NavigationView navigationView;
-    private DrawerLayout drawerLayout;
-
     //database variable
     DatabaseHandler databaseHandler;
     SQLiteDatabase db;
 
     //list id
-    private FloatingActionButton btnAdd;
     private EditText isiText;
-    private Spinner beritahu;
     Calendar c;
 
     @Override
@@ -110,16 +101,6 @@ public class MenuEdit extends AppCompatActivity
                     ruang.setSelection(4);
                     tRuangan.equals(ruang);
                 }
-                AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(this, AlarmReceiver.class);
-
-                String alertTitle = isiText.getText().toString();
-                intent.putExtra(getString(R.string.alert_title), alertTitle);
-                intent.putExtra(getString(R.string.nRuang), tRuangan);
-
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
             }
             cursor.close();
         }
@@ -216,6 +197,17 @@ public class MenuEdit extends AppCompatActivity
                                 cv.put(databaseHandler.COLUMN_TANGGAL, tanggal);
                                 cv.put(databaseHandler.COLUMN_JAM, jam);
                                 db.update(databaseHandler.TABLE_NAME, cv, databaseHandler.COLUMN_ID + "=" + id, null);
+
+
+                                AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                                Intent intent = new Intent(MenuEdit.this, AlarmReceiver.class);
+
+                                intent.putExtra(getString(R.string.alert_title), keg);
+                                intent.putExtra(getString(R.string.nRuang), ruangan);
+
+                                PendingIntent pendingIntent = PendingIntent.getBroadcast(MenuEdit.this, 0, intent, 0);
+
+                                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
 
                                 Intent openMainScreen = new Intent(MenuEdit.this, MainActivity.class);
                                 openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
