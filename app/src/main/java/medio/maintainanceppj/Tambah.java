@@ -151,8 +151,7 @@ public class Tambah extends AppCompatActivity implements
                     AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
                     Intent intent = new Intent(this, AlarmReceiver.class);
 
-                    String alertTitle = isiText.getText().toString();
-                    intent.putExtra(getString(R.string.alert_title), alertTitle);
+                    intent.putExtra(getString(R.string.alert_title), keg);
                     intent.putExtra(getString(R.string.nRuang), room);
 
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
