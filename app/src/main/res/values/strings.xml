@@ -70,6 +70,12 @@
     <string name="notify">You can recieve notifications</string>
     <string name="rodId">rowID</string>
 
+    <string name="IdTemp">rowID</string>
+    <string name="IDtemp">rowID</string>
+
+    <string name="TempDate">date</string>
+
+
     <string name="Alertnotifty">"Notifikasi Kegiatan: "</string>
 
     <string name="alerttitle">title</string>

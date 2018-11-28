@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         db = databaseHandler.getWritableDatabase();
 
         String [] from = {databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
-        final String [] column = {databaseHandler.COLUMN_ID, databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
+        final String [] column = {databaseHandler.COLUMN_ID, databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN,
+                databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
         int[] to = {R.id.vKeg, R.id.vRuangan, R.id.vTgl, R.id.vJam};
 
         final Cursor cursor = db.query(databaseHandler.TABLE_NAME, column, null, null, null, null, null);

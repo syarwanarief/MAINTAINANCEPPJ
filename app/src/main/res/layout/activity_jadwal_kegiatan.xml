@@ -12,11 +12,18 @@
         android:layout_height="wrap_content"
         android:text="Silahkan Klik Tanggal Untuk Melihat Jadwal Kegiatan Anda"
         android:marqueeRepeatLimit="marquee_forever"/>
+    <TextView
+        android:id="@+id/tampDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Text"
+        android:visibility="invisible"/>
     <CalendarView
         android:id="@+id/cView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:onClick="clickCalendar">
     </CalendarView>
 
         <ListView

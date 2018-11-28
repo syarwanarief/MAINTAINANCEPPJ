@@ -20,7 +20,7 @@
         <EditText
             android:id="@+id/text_isi"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:hint="Ketik disini..."
             android:textSize="18dp"
             android:layout_marginLeft="10dp"
@@ -37,7 +37,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="40dp"
+        android:paddingTop="70dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -122,44 +122,6 @@
                 android:layout_below="@id/textRuagan"
                 android:paddingTop="20dp">
             </Spinner></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="45dp"
-                android:paddingTop="20dp"
-                android:layout_gravity="center"
-                android:src="@drawable/icon_jam"/>
-            <Switch
-                android:id="@+id/switch1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="30dp"
-                android:paddingBottom="10dp"
-                android:textColor="#000"
-                android:text="Notifikasi"
-                android:textSize="14dp"
-                android:textStyle="bold"
-                android:onClick="aktifAlrm"/></LinearLayout>
-            <Spinner
-                android:id="@+id/id_beritahu"
-                android:entries="@array/alarmSebelum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:paddingTop="10dp"
-                android:layout_below="@+id/switch1"
-                android:layout_marginLeft="7dp"
-                android:visibility="invisible">
-            </Spinner>
     </LinearLayout>
 
     </LinearLayout>

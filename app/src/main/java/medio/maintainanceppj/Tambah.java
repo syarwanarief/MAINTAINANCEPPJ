@@ -34,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 
 public class Tambah extends AppCompatActivity implements
-        DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener, CompoundButton.OnCheckedChangeListener {
+        DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener{
 
     Button tambah;
     EditText editText;
@@ -78,12 +78,6 @@ public class Tambah extends AppCompatActivity implements
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //action switch
-        Switch s = (Switch) findViewById(R.id.switch1);
-        if (s != null); {
-            s.setOnCheckedChangeListener(this);
-        }
-
         //date time
         tampungdate=(EditText) findViewById(R.id.tampung_tanggal);
         tampungTime = (EditText) findViewById(R.id.tampung_jam);
@@ -98,6 +92,7 @@ public class Tambah extends AppCompatActivity implements
                 DatePickerDialog datePickerDialog = new DatePickerDialog(Tambah.this, Tambah.this,
                         year,month,day);
                 datePickerDialog.show();
+                tampungdate.setEnabled(false);
                 return true;
             }
         });
@@ -111,6 +106,8 @@ public class Tambah extends AppCompatActivity implements
                 TimePickerDialog timePickerDialog = new TimePickerDialog(Tambah.this, Tambah.this,
                         hour, minute, android.text.format.DateFormat.is24HourFormat(Tambah.this));
                 timePickerDialog.show();
+
+                tampungTime.setEnabled(false);
                 return true;
             }
         });
@@ -203,41 +200,9 @@ public class Tambah extends AppCompatActivity implements
         c = Calendar.getInstance();
         c.set(Calendar.HOUR, i);
         c.set(Calendar.MINUTE, i2);
+        c.set(Calendar.SECOND,00);
 
         tampungTime.setText(hourFinal+":"+minuteFinal);
 
-    }
-
-    public void aktifAlrm(View view) {
-
-    }
-
-    //action switch
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        Spinner b = (Spinner) findViewById(R.id.id_beritahu);
-        final Spinner ruang = (Spinner) findViewById(R.id.dRuagan);
-        String pilih = b.getSelectedItem().toString();
-        String vRuang = ruang.getSelectedItem().toString();
-        if(isChecked) {
-            //do stuff when Switch is ON
-            b.setVisibility(View.VISIBLE);
-
-            if (pilih.equals("1 Hari")){
-                AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(this, AlarmReceiver.class);
-
-                String alertTitle = isiText.getText().toString();
-                intent.putExtra(getString(R.string.alert_title), alertTitle);
-                intent.putExtra(getString(R.string.nRuang), vRuang);
-
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-            }
-        } else {
-            //do stuff when Switch if OFF
-            b.setVisibility(View.INVISIBLE);
-        }
     }
 }

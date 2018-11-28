@@ -16,7 +16,10 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import medio.maintainanceppj.R;
 
@@ -31,9 +34,9 @@ public class JadwalKegiatan extends AppCompatActivity {
     int thn = 0;
     ListView listView;
     TextView textView;
-    Cursor cursor;
     Calendar calendar;
-    String kal;
+    String dateString;
+    TextView a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,29 +47,53 @@ public class JadwalKegiatan extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+        dateString = dateformatter.format(new Date(cal.getTimeInMillis()));
+
 
         listView = (ListView) findViewById(R.id.listKegiatan);
-        textView = (TextView) findViewById(R.id.textini);
         databaseHandler = new DatabaseHandler(this);
         db = databaseHandler.getWritableDatabase();
-        cursor = db.rawQuery("select * from " + databaseHandler.TABLE_NAME + " where "
-                + databaseHandler.COLUMN_TANGGAL + " = " +kal, null);
-        final String[] column = {databaseHandler.COLUMN_ID, databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
-        int[] to = {R.id.vKeg, R.id.vRuangan, R.id.vTgl, R.id.vJam};
-        adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, column, to, 0);
+
+        String [] from = {databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
+        int[] to = {R.id.varKeg, R.id.varRuangan, R.id.varTgl, R.id.varJam};
+
+        final Cursor c = db.rawQuery("select * from "+databaseHandler.TABLE_NAME+ " where " +databaseHandler.COLUMN_TANGGAL+"=?",new String[] {dateString});
+        adapter = new SimpleCursorAdapter(this, R.layout.list_jadwal, c, from, to, 0);
+
         listView.setAdapter(adapter);
 
         CalendarView calendarView = findViewById(R.id.cView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                calendar = Calendar.getInstance();
+
+                Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                calendar.set(Calendar.MONTH, month+1);
+                calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.YEAR, year);
-                kal = calendar.toString();
+                SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+                dateString = dateformatter.format(new Date(calendar.getTimeInMillis()));
+                a=(TextView) findViewById(R.id.tampDate);
+                a.setText(dateString);
+
             }
         });
     }
 
+    public void clickCalendar(View view) {
+
+        a=(TextView) findViewById(R.id.tampDate);
+        SimpleDateFormat dateformatter = new SimpleDateFormat(getString(R.string.dateformate));
+        dateString = dateformatter.format(new Date(calendar.getTimeInMillis()));
+
+        String [] from = {databaseHandler.COLUMN_KEGIATAN, databaseHandler.COLUMN_RUANGAN, databaseHandler.COLUMN_TANGGAL, databaseHandler.COLUMN_JAM};
+        int[] to = {R.id.varKeg, R.id.varRuangan, R.id.varTgl, R.id.varJam};
+
+        final Cursor c = db.rawQuery("select * from "+databaseHandler.TABLE_NAME+ " where " +databaseHandler.COLUMN_TANGGAL+"=?",new String[] {a.toString()});
+        adapter = new SimpleCursorAdapter(this, R.layout.list_jadwal, c, from, to, 0);
+        listView.setAdapter(adapter);
+
+    }
 }

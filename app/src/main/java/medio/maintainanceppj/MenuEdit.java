@@ -1,10 +1,13 @@
 package medio.maintainanceppj;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.VoiceInteractor;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,7 +33,9 @@ import android.widget.TimePicker;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MenuEdit extends AppCompatActivity
             implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
@@ -58,6 +63,7 @@ public class MenuEdit extends AppCompatActivity
     private FloatingActionButton btnAdd;
     private EditText isiText;
     private Spinner beritahu;
+    Calendar c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,19 +92,34 @@ public class MenuEdit extends AppCompatActivity
                 tampungTime.setText(cursor.getString(cursor.getColumnIndex(databaseHandler.COLUMN_JAM)));
                 if (cursor.getString(cursor.getColumnIndex(databaseHandler.COLUMN_RUANGAN)).equals(ruang.getItemAtPosition(0))){
                     ruang.setSelection(0);
+                    tRuangan.equals(ruang);
                 }
                 else if (cursor.getString(cursor.getColumnIndex(databaseHandler.COLUMN_RUANGAN)).equals(ruang.getItemAtPosition(1))){
                     ruang.setSelection(1);
+                    tRuangan.equals(ruang);
                 }
                 else if (cursor.getString(cursor.getColumnIndex(databaseHandler.COLUMN_RUANGAN)).equals(ruang.getItemAtPosition(2))){
                     ruang.setSelection(2);
+                    tRuangan.equals(ruang);
                 }
                 else if (cursor.getString(cursor.getColumnIndex(databaseHandler.COLUMN_RUANGAN)).equals(ruang.getItemAtPosition(3))){
                     ruang.setSelection(3);
+                    tRuangan.equals(ruang);
                 }
                 else if (cursor.getString(cursor.getColumnIndex(databaseHandler.COLUMN_RUANGAN)).equals(ruang.getItemAtPosition(4))){
                     ruang.setSelection(4);
+                    tRuangan.equals(ruang);
                 }
+                AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(this, AlarmReceiver.class);
+
+                String alertTitle = isiText.getText().toString();
+                intent.putExtra(getString(R.string.alert_title), alertTitle);
+                intent.putExtra(getString(R.string.nRuang), tRuangan);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+                alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
             }
             cursor.close();
         }
@@ -142,12 +163,22 @@ public class MenuEdit extends AppCompatActivity
         mounthFinal = i1 + 1;
         dayFinal = i2;
 
+        c = Calendar.getInstance();
+        c.set(Calendar.YEAR, i);
+        c.set(Calendar.MONTH, i1+1);
+        c.set(Calendar.DAY_OF_MONTH, i2);
+
         tampungdate.setText(dayFinal+"/"+mounthFinal+"/"+yearFinal);
     }
 
     public void onTimeSet(TimePicker view, int i, int i2) {
         hourFinal = i;
         minuteFinal = i2;
+
+        c = Calendar.getInstance();
+        c.set(Calendar.HOUR, i);
+        c.set(Calendar.MINUTE, i2);
+        c.set(Calendar.SECOND,00);
 
         tampungTime.setText(hourFinal+":"+minuteFinal);
 
