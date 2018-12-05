@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -56,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     SQLiteDatabase db;
     SimpleCursorAdapter adapter;
+    String data_array[];
 
     private NotificationManagerCompat notificationManagerCompat;
 
@@ -68,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         list = (ListView)findViewById(R.id.commentlist);
         notificationManagerCompat = NotificationManagerCompat.from(this);
-
-        int[] androidColors = getResources().getIntArray(R.array.androidcolors);
-        final int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
 
         //reset sharedpreff
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -87,7 +89,37 @@ public class MainActivity extends AppCompatActivity {
         int[] to = {R.id.vKeg, R.id.vRuangan, R.id.vTgl, R.id.vJam};
 
         final Cursor cursor = db.query(databaseHandler.TABLE_NAME, column, null, null, null, null, null);
-        adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0);
+        adapter = new SimpleCursorAdapter(this, R.layout.list_entry, cursor, from, to, 0){
+            public View getView(int position, View convertView, ViewGroup parent)
+            {
+                View view = super.getView(position,convertView,parent);
+
+                if (position%6 == 0){
+                    view.setBackgroundColor(Color.parseColor("#b3d1ff"));
+
+                } else if (position%6 == 1){
+                    view.setBackgroundColor(Color.parseColor("#ddddbb"));
+
+                } else if (position%6 == 2){
+                    view.setBackgroundColor(Color.parseColor("#99ff99"));
+
+                } else if (position%6 == 3){
+                    view.setBackgroundColor(Color.parseColor("#ddff99"));
+
+                }else if (position%6 == 4){
+                    view.setBackgroundColor(Color.parseColor("#ffff99"));
+
+                }else if (position%6 == 5){
+                    view.setBackgroundColor(Color.parseColor("#ff9999"));
+                }
+                else
+                {
+                    // Set the background color for alternate row/item
+                    view.setBackgroundColor(Color.parseColor("#f2f2f2f2"));
+                }
+                return view;
+            }
+        };
 
         list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
