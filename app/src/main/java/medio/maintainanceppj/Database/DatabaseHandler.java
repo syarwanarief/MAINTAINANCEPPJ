@@ -1,4 +1,4 @@
-package medio.maintainanceppj;
+package medio.maintainanceppj.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +9,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //database ver
     private static final int DATABASE_VERSION = 2;
     //db name
-    public static final String DATABASE_NAME = "MTppj";
+    public static final String DATABASE_NAME = "db_ppj";
     //table name
     public static final String TABLE_NAME = "tasks";
     //table fields

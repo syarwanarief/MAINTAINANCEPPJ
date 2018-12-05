@@ -1,11 +1,13 @@
-package medio.maintainanceppj;
+package medio.maintainanceppj.menuActivity;
 
 import android.app.AlertDialog;
-import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -14,11 +16,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,15 +30,24 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Random;
+
+import medio.maintainanceppj.Database.DatabaseHandler;
+import medio.maintainanceppj.R;
+import medio.maintainanceppj.viewHolder;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String PutTime = "timeKey";
+    SharedPreferences sharedpreferences;
 
     TextView text1;
 
     int i = 0;
     boolean exit = false;
+    LayoutInflater lInflater;
 
     //Mendefinisikan variabel
     private NavigationView navigationView;
@@ -43,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHandler databaseHandler;
     SQLiteDatabase db;
     SimpleCursorAdapter adapter;
-    private String[] pilih;
 
     private NotificationManagerCompat notificationManagerCompat;
 
@@ -56,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.blue)));
         list = (ListView)findViewById(R.id.commentlist);
         notificationManagerCompat = NotificationManagerCompat.from(this);
+
+        int[] androidColors = getResources().getIntArray(R.array.androidcolors);
+        final int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+
+        //reset sharedpreff
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove(PutTime);
 
         //display db
         databaseHandler = new DatabaseHandler(this);
@@ -75,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
                                     long id){
                 Intent intent = new Intent(MainActivity.this, MenuEdit.class);
                 intent.putExtra(getString(R.string.rodId), id);
+                Toast.makeText(getApplicationContext(),"Tahan Untuk Memilih Opsi ",Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -210,5 +231,20 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     return super.onContextItemSelected(item);
         }
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        int[] androidColors = getResources().getIntArray(R.array.androidcolors);
+        final int randomAndroidColor = androidColors[new Random().nextInt(androidColors.length)];
+        View view = convertView;
+        if (view == null) {
+            view = lInflater.inflate(R.layout.list_entry, parent, false);
+        }
+        if (position % 2 == 0) {
+            view.setBackgroundResource(randomAndroidColor);
+        } else {
+            view.setBackgroundResource(randomAndroidColor);
+        }
+        return view;
     }
 }

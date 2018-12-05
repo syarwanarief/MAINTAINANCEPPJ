@@ -1,20 +1,16 @@
-package medio.maintainanceppj;
+package medio.maintainanceppj.menuActivity;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.app.VoiceInteractor;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,17 +21,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
+import medio.maintainanceppj.Alarm.AlarmReceiver;
+import medio.maintainanceppj.Database.DatabaseHandler;
+import medio.maintainanceppj.R;
 
 public class MenuEdit extends AppCompatActivity
             implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{

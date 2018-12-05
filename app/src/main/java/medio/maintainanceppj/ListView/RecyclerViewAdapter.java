@@ -1,4 +1,4 @@
-package medio.maintainanceppj;
+package medio.maintainanceppj.ListView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import medio.maintainanceppj.Database.FireModel;
+import medio.maintainanceppj.R;
 
 class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     List<FireModel> list;

@@ -1,4 +1,4 @@
-package medio.maintainanceppj;
+package medio.maintainanceppj.menuActivity;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -7,12 +7,12 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,11 +20,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,8 +31,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
+import medio.maintainanceppj.Alarm.AlarmReceiver;
+import medio.maintainanceppj.Database.DatabaseHandler;
+import medio.maintainanceppj.R;
+
 public class Tambah extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener{
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String PutTime = "timeKey";
+    SharedPreferences sharedpreferences;
 
     Button tambah;
     EditText editText;
@@ -148,15 +154,21 @@ public class Tambah extends AppCompatActivity implements
 
                     db.insert(databaseHandler.TABLE_NAME, null, cv);
 
+                    sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+                    sharedpreferences.edit();
+                    Long time = sharedpreferences.getLong(PutTime, 0);
+
+                    Intent myIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(this, AlarmReceiver.class);
-
+                    Intent intent = new Intent(Tambah.this, AlarmReceiver.class);
                     intent.putExtra(getString(R.string.alert_title), keg);
-                    intent.putExtra(getString(R.string.nRuang), room);
 
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+                    //intent.putExtra(getString(R.string.nRuang), room);
 
-                    alarmMgr.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(Tambah.this, 0, intent, 0);
+                    alarmMgr.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
                     Intent openMainScreen = new Intent(Tambah.this,MainActivity.class);
                     openMainScreen.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -196,12 +208,16 @@ public class Tambah extends AppCompatActivity implements
         hourFinal = i;
         minuteFinal = i2;
 
-        c = Calendar.getInstance();
-        c.set(Calendar.HOUR, i);
-        c.set(Calendar.MINUTE, i2);
-        c.set(Calendar.SECOND,00);
-
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR, i);
+        calendar.set(Calendar.MINUTE, i2);
+        calendar.set(Calendar.SECOND,00);
         tampungTime.setText(hourFinal+":"+minuteFinal);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putLong(PutTime, calendar.getTimeInMillis());
+
 
     }
 }

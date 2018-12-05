@@ -1,4 +1,4 @@
-package medio.maintainanceppj;
+package medio.maintainanceppj.Database;
 
 public class FireModel {
     public String kegiatan;

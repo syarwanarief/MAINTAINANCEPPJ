@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".JadwalKegiatan">
+    tools:context=".menuActivity.JadwalKegiatan"
+    android:onClick="clickCalendar">
 
     <TextView
         android:id="@+id/textini"
@@ -22,8 +23,7 @@
         android:id="@+id/cView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:onClick="clickCalendar">
+        android:orientation="vertical">
     </CalendarView>
 
         <ListView
